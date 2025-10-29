@@ -1,0 +1,53 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import "tailwindcss";
+
+body {
+  font-family: 'Press Start 2P', cursive;
+}
+*::selection{
+  background-color: #ffffff;
+  color: #0a7baf;
+}
+.font-press {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+.bg-ps2black {
+  background-color: #0B0B0B;
+}
+
+.text-ps2gray {
+  color: #C0C0C0;
+}
+
+.text-ps2blue {
+  color: #0033A0;
+}
+
+.shadow-ps2glow {
+  text-shadow: 0 0 6px rgba(0, 51, 160, 0.8);
+}
+
+
+.press-start-2p-regular {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+.press-start-2p-bold {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 700;
+  font-style: normal;
+}
+.press-start-2p-italic {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: italic;
+}
+.press-start-2p-bold-italic {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 700;
+  font-style: italic;
+}
