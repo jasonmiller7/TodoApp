@@ -23,14 +23,14 @@ function Home() {
         and pride.
       </p>
 
-      <div className="w-full max-w-xl space-y-4">
+      <div className="w-full space-y-4">
         <TodoInput />
         <TodoList />
         { todos.length > 0 &&
         <div className="flex justify-center">
           <button
             onClick={() => dispatch({ type: "CLEAR_ALL" })}
-            className="bg-red-700 w-1/2 p-2 text-white rounded font-press hover:bg-red-500 transition shadow-lg"
+            className="bg-red-700 w-1/4 p-2 text-white rounded font-press hover:bg-red-500 transition shadow-lg"
           >
             Clear All Quests
           </button>

@@ -54,7 +54,7 @@ function TodoInput() {
   `;
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex justify-center items-center gap-2">
       <input
         ref={inputRef}
         type="text"
@@ -62,7 +62,7 @@ function TodoInput() {
         value={inputValue} 
         onChange={handleInputChange} 
         onKeyDown={handleKeyPress}
-        className="w-full text-xl px-4 py-2 rounded bg-ps2gray text-ps2black font-press placeholder:text-ps2black focus:outline-none focus:ring-2 focus:ring-ps2blue"
+        className="w-1/2 text-xl px-4 py-2 rounded bg-ps2gray text-ps2black font-press placeholder:text-ps2black focus:outline-none focus:ring-2 focus:ring-ps2blue"
       />
       <button
         onClick={handleAdd}

@@ -4,8 +4,21 @@ import TodoContext from './TodoContext';
 
 const todoReducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
-      return [...state, { id: Date.now(), text: action.payload, done: false }];
+    case 'ADD_TODO': {
+      const now = Date.now();
+      return [
+        ...state,
+        {
+          id: now,
+          text: action.payload,
+          done: false,
+          priority: 'low',
+          starred: false,
+          createdAt: now
+        }
+      ];
+    }
+
     case 'TOGGLE_TODO':
       return state.map(todo =>
         todo.id === action.payload ? { ...todo, done: !todo.done } : todo
@@ -15,15 +28,26 @@ const todoReducer = (state, action) => {
     case 'CLEAR_ALL':
       return [];
     case 'CLEAR_DONE':
-      return state.filter(todo => !todo.done)
+      return state.filter(todo => !todo.done);
     case 'EDIT_TODO':
       return state.map(todo =>
         todo.id === action.payload.id ? { ...todo, text: action.payload.text } : todo
+      );
+    case 'SET_PRIORITY':
+      return state.map(todo =>
+        todo.id === action.payload.id ? { ...todo, priority: action.payload.priority } : todo
+      );
+    case 'REORDER_TODOS':
+      return [...action.payload];
+    case 'TOGGLE_STAR':
+      return state.map(todo =>
+        todo.id === action.payload ? { ...todo, starred: !todo.starred } : todo
       );
     default:
       return state;
   }
 };
+
 
 const TodoProvider = ({ children }) => {
   const [todos, dispatch] = useReducer(todoReducer, [], () => {
