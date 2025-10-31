@@ -3,6 +3,15 @@ import { flushSync } from "react-dom";
 import useTodos from "../context/useTodos";
 import useSettings from "../context/useSettings";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import confetti from "canvas-confetti";
+
+// function celebrate() {
+//   confetti({
+//     particleCount: 100,
+//     spread: 70,
+//     origin: { y: 0.6 },
+//   });
+// }
 
 function TodoList() {
   const { todos, dispatch } = useTodos();
@@ -93,13 +102,23 @@ function TodoList() {
                             </span>
                           </div>
                           {todo.createdAt && (
-                            <p className="text-xs italic text-gray-500 mb-2">
-                              Quest received:{" "}
-                              {new Date(todo.createdAt).toLocaleDateString()},{" "}
-                              {new Date(todo.createdAt).toLocaleTimeString()}
-                            </p>
+                            <>
+                              <p className="text-xs italic text-gray-500 mb-2">
+                                Quest received:{" "}
+                                {new Date(todo.createdAt).toLocaleDateString()},{" "}
+                                {new Date(todo.createdAt).toLocaleTimeString()}
+                              </p>
+                            </>
                           )}
-
+                          {todo.done && (
+                            <>
+                              <p className="text-xs italic text-gray-500 mb-2">
+                                Quest completed:{" "}
+                                {new Date(todo.doneAt).toLocaleDateString()},{" "}
+                                {new Date(todo.doneAt).toLocaleTimeString()}
+                              </p>
+                            </>
+                          )}
                           {editID === todo.id ? (
                             <>
                               <input
@@ -193,13 +212,7 @@ function TodoList() {
                                   ★
                                 </button>
                               </div>
-                              <p
-                                className={`text-xl ${
-                                  todo.done ? "line-through" : ""
-                                } mb-6`}
-                              >
-                                {todo.text}
-                              </p>
+                              <p className={`text-xl mb-6`}>{todo.text}</p>
                               <div className="flex justify-end gap-2 flex-nowrap overflow-x-auto">
                                 {!todo.done && (
                                   <button
@@ -213,12 +226,31 @@ function TodoList() {
                                   </button>
                                 )}
                                 <button
-                                  onClick={() =>
+                                  onClick={(e) => {
+                                    if (!todo.done) {
+                                      const rect = e.currentTarget
+                                        .closest("div")
+                                        ?.getBoundingClientRect();
+                                      if (rect) {
+                                        const x = rect.left + rect.width / 2;
+                                        const y = rect.top + rect.height / 2;
+
+                                        // Convert to normalized coordinates (0–1)
+                                        const originX = x / window.innerWidth;
+                                        const originY = y / window.innerHeight;
+
+                                        confetti({
+                                          particleCount: 100,
+                                          spread: 70,
+                                          origin: { x: originX, y: originY },
+                                        });
+                                      }
+                                    }
                                     dispatch({
                                       type: "TOGGLE_TODO",
                                       payload: todo.id,
-                                    })
-                                  }
+                                    });
+                                  }}
                                   className={`text-xs px-3 py-2 rounded ${
                                     todo.done
                                       ? "bg-yellow-600 text-white hover:bg-yellow-800"
